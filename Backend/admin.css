@@ -1,0 +1,267 @@
+This is a complete HTML file that uses the admin.css stylesheet you provided. It creates a functional admin dashboard with a login page, sidebar navigation, statistics cards, and a data table.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin · Gold Dashboard</title>
+    <!-- admin.css content is embedded below (exactly as provided) -->
+    <style>
+        /* === admin.css (copy/paste) === */
+        *{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:#f4f6f9;color:#182033}button,input,select,textarea{font:inherit}.login{min-height:100vh;display:grid;place-items:center;padding:20px;background:#071a3b}.login-card{width:min(410px,100%);background:#fff;padding:32px;border-radius:12px;box-shadow:0 20px 60px #0004}.logo{font-family:Georgia,serif;color:#071a3b;font-size:25px;font-weight:800;text-align:center}.gold{color:#c99522}.login-card p{color:#667085;font-size:13px}.field{display:grid;gap:6px;margin:12px 0}.field label{font-size:12px;font-weight:700}.field input,.field select,.field textarea{border:1px solid #d9dde5;border-radius:6px;padding:11px;outline:0}.btn{border:0;border-radius:6px;padding:10px 14px;font-weight:700;cursor:pointer}.primary{background:#e5a52b;color:#111}.navy{background:#071a3b;color:#fff}.shell{display:grid;grid-template-columns:225px 1fr;min-height:100vh}.side{background:#071a3b;color:#fff;padding:20px 14px;position:sticky;top:0;height:100vh}.side h2{font-family:Georgia,serif;margin:0 0 5px}.side small{color:#cbd1dc}.side nav{margin-top:28px}.side button{width:100%;text-align:left;background:transparent;border:0;color:#dce2ec;padding:12px;border-radius:6px;cursor:pointer}.side button.active,.side button:hover{background:#132b55;color:#fff}.logout{margin-top:20px!important;color:#e6aa31!important}.main{padding:24px;overflow:auto}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.top h1{margin:0;font-size:25px}.cards{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}.stat{background:#fff;border:1px solid #e6e9ee;border-radius:9px;padding:15px}.stat small{display:block;color:#667085}.stat b{display:block;font-size:22px;margin-top:5px}.panel{margin-top:18px;background:#fff;border:1px solid #e6e9ee;border-radius:9px;padding:18px}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.panel h3{margin:0}.table-wrap{overflow:auto;margin-top:12px}table{width:100%;border-collapse:collapse;min-width:720px}th,td{padding:11px 9px;border-bottom:1px solid #edf0f3;text-align:left;font-size:12px}th{font-size:11px;color:#667085;background:#fafbfc}.badge{display:inline-block;padding:4px 8px;border-radius:20px;background:#eef2f7;font-size:10px}.toolbar{display:flex;gap:8px;flex-wrap:wrap}.toolbar input{padding:9px;border:1px solid #ddd;border-radius:6px}.grid-form{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.grid-form .full{grid-column:1/-1}.hidden{display:none}.message{padding:10px;background:#fff7df;border:1px solid #efd18a;border-radius:6px;font-size:12px;margin:10px 0}@media(max-width:1000px){.cards{grid-template-columns:repeat(3,1fr)}}@media(max-width:700px){.shell{grid-template-columns:1fr}.side{height:auto;position:relative}.side nav{display:grid;grid-template-columns:repeat(2,1fr)}.main{padding:14px}.cards{grid-template-columns:repeat(2,1fr)}.grid-form{grid-template-columns:1fr}.grid-form .full{grid-column:auto}}
+    </style>
+</head>
+<body>
+    <!-- login page (hidden by default, shown via JS toggle) -->
+    <div id="loginPage" class="login">
+        <div class="login-card">
+            <div class="logo">✦ <span class="gold">Gold</span>Admin</div>
+            <p>Sign in to your dashboard</p>
+            <form id="loginForm">
+                <div class="field">
+                    <label>Email</label>
+                    <input type="email" value="admin@example.com" id="loginEmail">
+                </div>
+                <div class="field">
+                    <label>Password</label>
+                    <input type="password" value="password" id="loginPassword">
+                </div>
+                <button type="submit" class="btn primary" style="width:100%;margin-top:12px;">Login</button>
+                <div id="loginMessage" class="message hidden"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- main dashboard shell (hidden initially) -->
+    <div id="dashboardShell" class="shell hidden">
+        <!-- sidebar -->
+        <aside class="side">
+            <h2>✦ <span class="gold">Gold</span></h2>
+            <small>Admin v2.0</small>
+            <nav>
+                <button class="active" data-view="dashboard">📊 Dashboard</button>
+                <button data-view="orders">📦 Orders</button>
+                <button data-view="customers">👥 Customers</button>
+                <button data-view="settings">⚙️ Settings</button>
+                <button class="logout" id="logoutBtn">🚪 Logout</button>
+            </nav>
+        </aside>
+
+        <!-- main content -->
+        <main class="main">
+            <!-- top bar -->
+            <div class="top">
+                <h1 id="pageTitle">Dashboard</h1>
+                <div class="toolbar">
+                    <input type="text" placeholder="Search..." id="globalSearch">
+                    <button class="btn navy" id="addBtn">+ Add</button>
+                </div>
+            </div>
+
+            <!-- cards / stats (visible on dashboard) -->
+            <div id="statsGrid" class="cards">
+                <div class="stat"><small>Revenue</small><b>$12,430</b></div>
+                <div class="stat"><small>Orders</small><b>284</b></div>
+                <div class="stat"><small>Customers</small><b>1,284</b></div>
+                <div class="stat"><small>Conversion</small><b>3.4%</b></div>
+                <div class="stat"><small>Avg. Order</small><b>$43</b></div>
+                <div class="stat"><small>Refunds</small><b>12</b></div>
+            </div>
+
+            <!-- panel: table / content area -->
+            <div class="panel" id="mainPanel">
+                <div class="panel-head">
+                    <h3 id="panelTitle">Recent orders</h3>
+                    <span class="badge">last 7 days</span>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr><th>Order ID</th><th>Customer</th><th>Total</th><th>Status</th><th>Date</th></tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <tr><td>#1024</td><td>Emma Stone</td><td>$142.00</td><td><span class="badge" style="background:#d4edda;">Paid</span></td><td>2026-08-24</td></tr>
+                            <tr><td>#1023</td><td>Liam Porter</td><td>$89.50</td><td><span class="badge" style="background:#fff3cd;">Pending</span></td><td>2026-08-23</td></tr>
+                            <tr><td>#1022</td><td>Olivia Chen</td><td>$210.00</td><td><span class="badge" style="background:#f8d7da;">Refunded</span></td><td>2026-08-22</td></tr>
+                            <tr><td>#1021</td><td>Noah Brooks</td><td>$67.30</td><td><span class="badge" style="background:#d4edda;">Paid</span></td><td>2026-08-21</td></tr>
+                            <tr><td>#1020</td><td>Ava Wright</td><td>$34.00</td><td><span class="badge" style="background:#e2e3e5;">Shipped</span></td><td>2026-08-20</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="dynamicContent" style="margin-top:16px; font-size:13px; color:#667085;">
+                    <!-- additional dynamic content can appear here -->
+                </div>
+            </div>
+
+            <!-- hidden message placeholder -->
+            <div id="actionMessage" class="message hidden" style="margin-top:12px;"></div>
+        </main>
+    </div>
+
+    <script>
+        (function() {
+            "use strict";
+
+            // DOM elements
+            const loginPage = document.getElementById('loginPage');
+            const dashboardShell = document.getElementById('dashboardShell');
+            const loginForm = document.getElementById('loginForm');
+            const loginMessage = document.getElementById('loginMessage');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const pageTitle = document.getElementById('pageTitle');
+            const panelTitle = document.getElementById('panelTitle');
+            const tableBody = document.getElementById('tableBody');
+            const statsGrid = document.getElementById('statsGrid');
+            const dynamicContent = document.getElementById('dynamicContent');
+            const actionMessage = document.getElementById('actionMessage');
+            const addBtn = document.getElementById('addBtn');
+            const globalSearch = document.getElementById('globalSearch');
+            const navButtons = document.querySelectorAll('.side nav button:not(.logout)');
+
+            // ----- helper functions -----
+            function showMessage(msg, isError = false) {
+                actionMessage.textContent = msg;
+                actionMessage.style.display = 'block';
+                actionMessage.style.background = isError ? '#f8d7da' : '#fff7df';
+                actionMessage.style.borderColor = isError ? '#f5c6cb' : '#efd18a';
+                setTimeout(() => { actionMessage.style.display = 'none'; }, 3000);
+            }
+
+            // ----- login logic -----
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('loginEmail').value.trim();
+                const pass = document.getElementById('loginPassword').value.trim();
+                if (email === 'admin@example.com' && pass === 'password') {
+                    loginMessage.classList.add('hidden');
+                    loginPage.style.display = 'none';
+                    dashboardShell.classList.remove('hidden');
+                    // reset active view
+                    setActiveView('dashboard');
+                } else {
+                    loginMessage.classList.remove('hidden');
+                    loginMessage.textContent = 'Invalid credentials. Use admin@example.com / password';
+                    loginMessage.style.background = '#f8d7da';
+                    loginMessage.style.borderColor = '#f5c6cb';
+                }
+            });
+
+            // ----- logout -----
+            logoutBtn.addEventListener('click', function() {
+                dashboardShell.classList.add('hidden');
+                loginPage.style.display = 'grid';
+                // reset login message
+                loginMessage.classList.add('hidden');
+                // clear any search
+                globalSearch.value = '';
+            });
+
+            // ----- navigation: switch views (simulated) -----
+            function setActiveView(viewId) {
+                // update active button
+                navButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.view === viewId) {
+                        btn.classList.add('active');
+                    }
+                });
+
+                // update titles and content based on view
+                const titles = {
+                    dashboard: { page: 'Dashboard', panel: 'Recent orders' },
+                    orders: { page: 'Orders', panel: 'All orders' },
+                    customers: { page: 'Customers', panel: 'Customer list' },
+                    settings: { page: 'Settings', panel: 'Preferences' }
+                };
+                const t = titles[viewId] || titles.dashboard;
+                pageTitle.textContent = t.page;
+                panelTitle.textContent = t.panel;
+
+                // show/hide stats grid
+                if (viewId === 'dashboard') {
+                    statsGrid.style.display = 'grid';
+                } else {
+                    statsGrid.style.display = 'none';
+                }
+
+                // update table or dynamic content based on view
+                if (viewId === 'dashboard') {
+                    // restore default table
+                    tableBody.innerHTML = `
+                        <tr><td>#1024</td><td>Emma Stone</td><td>$142.00</td><td><span class="badge" style="background:#d4edda;">Paid</span></td><td>2026-08-24</td></tr>
+                        <tr><td>#1023</td><td>Liam Porter</td><td>$89.50</td><td><span class="badge" style="background:#fff3cd;">Pending</span></td><td>2026-08-23</td></tr>
+                        <tr><td>#1022</td><td>Olivia Chen</td><td>$210.00</td><td><span class="badge" style="background:#f8d7da;">Refunded</span></td><td>2026-08-22</td></tr>
+                        <tr><td>#1021</td><td>Noah Brooks</td><td>$67.30</td><td><span class="badge" style="background:#d4edda;">Paid</span></td><td>2026-08-21</td></tr>
+                        <tr><td>#1020</td><td>Ava Wright</td><td>$34.00</td><td><span class="badge" style="background:#e2e3e5;">Shipped</span></td><td>2026-08-20</td></tr>
+                    `;
+                    dynamicContent.textContent = '';
+                } else if (viewId === 'orders') {
+                    tableBody.innerHTML = `
+                        <tr><td>#2047</td><td>Mia Torres</td><td>$320.00</td><td><span class="badge" style="background:#d4edda;">Paid</span></td><td>2026-08-24</td></tr>
+                        <tr><td>#2046</td><td>James Kim</td><td>$155.00</td><td><span class="badge" style="background:#e2e3e5;">Shipped</span></td><td>2026-08-23</td></tr>
+                        <tr><td>#2045</td><td>Sophia Park</td><td>$78.20</td><td><span class="badge" style="background:#fff3cd;">Pending</span></td><td>2026-08-22</td></tr>
+                    `;
+                    dynamicContent.textContent = '📋 3 orders awaiting processing.';
+                } else if (viewId === 'customers') {
+                    tableBody.innerHTML = `
+                        <tr><td>CUST-101</td><td>Ethan Hunt</td><td>$0</td><td><span class="badge">Active</span></td><td>2026-08-01</td></tr>
+                        <tr><td>CUST-102</td><td>Natalie Portman</td><td>$0</td><td><span class="badge" style="background:#e2e3e5;">Inactive</span></td><td>2026-07-15</td></tr>
+                        <tr><td>CUST-103</td><td>Chris Evans</td><td>$0</td><td><span class="badge">Active</span></td><td>2026-08-20</td></tr>
+                    `;
+                    dynamicContent.textContent = '👥 1284 total customers, 3 shown.';
+                } else if (viewId === 'settings') {
+                    tableBody.innerHTML = `
+                        <tr><td>Site name</td><td>GoldAdmin</td><td>—</td><td><span class="badge" style="background:#d4edda;">Live</span></td><td>2026-08-24</td></tr>
+                        <tr><td>Default currency</td><td>USD</td><td>—</td><td><span class="badge" style="background:#d4edda;">Set</span></td><td>2026-08-20</td></tr>
+                        <tr><td>Maintenance</td><td>Off</td><td>—</td><td><span class="badge" style="background:#e2e3e5;">Disabled</span></td><td>2026-08-10</td></tr>
+                    `;
+                    dynamicContent.textContent = '⚙️ System settings: update any field.';
+                }
+
+                // hide any leftover message
+                actionMessage.style.display = 'none';
+            }
+
+            navButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const view = this.dataset.view;
+                    if (view) setActiveView(view);
+                });
+            });
+
+            // ----- "Add" button (demo) -----
+            addBtn.addEventListener('click', function() {
+                showMessage('✚ New item form would open (simulated).', false);
+            });
+
+            // ----- global search (demo) -----
+            globalSearch.addEventListener('input', function() {
+                const val = this.value.trim().toLowerCase();
+                if (val.length > 0) {
+                    showMessage(`🔍 Searching for "${val}" ... (demo)`, false);
+                } else {
+                    actionMessage.style.display = 'none';
+                }
+            });
+
+            // ----- initial state: show login, hide dashboard -----
+            loginPage.style.display = 'grid';
+            dashboardShell.classList.add('hidden');
+            loginMessage.classList.add('hidden');
+
+            // set default dashboard view if already logged (but hidden)
+            // ensure stats visible
+            statsGrid.style.display = 'grid';
+
+            // small extra: if user clicks on "Dashboard" after login, reset.
+            // already handled.
+
+            // For demo: if someone reloads while dashboard is visible, they will see login anyway.
+            // (we keep hidden class on dashboard by default, login visible)
+        })();
+    </script>
+</body>
+</html>
+```
