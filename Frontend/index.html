@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Jagdamba Optical - Premium eyewear, sunglasses, lenses and computer glasses." />
+  <title>Jagdamba Optical | See the World More Clearly</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="topbar">
+    <div>🚚 Free Shipping on Orders Above ₹999</div>
+    <div>🛡️ 100% Original Products</div>
+    <div>↻ 7 Days Return</div>
+    <div>✓ 1 Year Warranty</div>
+    <div>⌖ Store Locator</div>
+    <div>▣ Track Order</div>
+    <div>❓ Help & Support</div>
+  </div>
+
+  <header class="header">
+    <a class="logo" href="#">
+      <span class="logo-mark">♕</span>
+      <span><b>JAGDAMBA</b><small>OPTICAL</small></span>
+    </a>
+
+    <div class="search">
+      <input id="searchInput" type="search" placeholder="Search frames, sunglasses, lenses..." />
+      <button aria-label="Search">⌕</button>
+    </div>
+
+    <div class="header-actions">
+      <button>♡<span>Wishlist</span></button>
+      <button>⇄<span>Compare</span></button>
+      <button>♙<span>Account</span></button>
+      <button class="cart-btn" id="cartButton">🛒 <span>Cart</span><i id="cartCount">0</i></button>
+    </div>
+  </header>
+
+  <nav class="nav">
+    <a href="#eyeglasses">EYEGLASSES <span>⌄</span></a>
+    <a href="#sunglasses">SUNGLASSES <span>⌄</span></a>
+    <a href="#kids">KIDS <span>⌄</span></a>
+    <a href="#computer">COMPUTER GLASSES <span>⌄</span></a>
+    <a href="#lenses">LENSES <span>⌄</span></a>
+    <a href="#brands">BRANDS <span>⌄</span></a>
+    <a class="offer" href="#offers">OFFERS</a>
+    <a href="#new">NEW ARRIVALS</a>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">SEE THE WORLD</p>
+        <h1>MORE CLEARLY</h1>
+        <p class="hero-sub">Premium Frames <b>•</b> Advanced Lenses <b>•</b> Trusted Service</p>
+        <div class="hero-buttons">
+          <a href="#products" class="btn primary">EXPLORE FRAMES</a>
+          <a href="#lenses" class="btn secondary">SHOP BY POWER</a>
+        </div>
+        <div class="benefits">
+          <div><strong>♢</strong><span><b>100% Original</b><small>Authentic Products</small></span></div>
+          <div><strong>▱</strong><span><b>Free Shipping</b><small>Above ₹999</small></span></div>
+          <div><strong>◉</strong><span><b>1 Year Warranty</b><small>On All Frames</small></span></div>
+          <div><strong>↻</strong><span><b>7 Days Return</b><small>Easy Return Policy</small></span></div>
+          <div><strong>♧</strong><span><b>Expert Support</b><small>24x7 Assistance</small></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="category-strip" id="eyeglasses">
+      <a class="category-card" href="#products"><img src="https://images.unsplash.com/photo-1574258495973-f010dfbb5371?auto=format&fit=crop&w=500&q=80"><span><b>Eyeglasses</b><small>Wide Range of Frames</small></span></a>
+      <a class="category-card" href="#sunglasses"><img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=500&q=80"><span><b>Sunglasses</b><small>UV Protected Styles</small></span></a>
+      <a class="category-card" href="#kids"><img src="https://images.unsplash.com/photo-1577803645773-f96470509666?auto=format&fit=crop&w=500&q=80"><span><b>Kids Collection</b><small>Stylish & Safe</small></span></a>
+      <a class="category-card" href="#computer"><img src="https://images.unsplash.com/photo-1508296695146-257a814070b4?auto=format&fit=crop&w=500&q=80"><span><b>Computer Glasses</b><small>Blue Light Protection</small></span></a>
+      <a class="category-card" href="#lenses"><img src="https://images.unsplash.com/photo-1577803645773-f96470509666?auto=format&fit=crop&w=500&q=80"><span><b>Contact Lenses</b><small>Comfort All Day</small></span></a>
+      <a class="category-card" href="#lenses"><img src="https://images.unsplash.com/photo-1556306535-0f09a537f0a3?auto=format&fit=crop&w=500&q=80"><span><b>Lens Options</b><small>All Types Available</small></span></a>
+    </section>
+
+    <section class="products-section" id="products">
+      <div class="section-heading">
+        <div><p class="section-kicker">TRENDING NOW</p><h2>Popular Eyewear</h2></div>
+        <a href="#products">View All →</a>
+      </div>
+      <div class="product-grid" id="productGrid"></div>
+    </section>
+
+    <section class="promo-grid" id="offers">
+      <article class="promo dark">
+        <div><p>BLUE LIGHT PROTECTION</p><h2>For Your Digital Life</h2><small>Starting at ₹799</small><a href="#computer" class="btn primary">SHOP NOW</a></div>
+        <img src="https://images.unsplash.com/photo-1577803645773-f96470509666?auto=format&fit=crop&w=900&q=85">
+      </article>
+      <article class="promo light">
+        <div><p>UP TO</p><h2>50% OFF</h2><small>ON SELECTED FRAMES</small><a href="#products" class="btn dark-btn">SHOP OFFERS</a></div>
+        <img src="https://images.unsplash.com/photo-1508296695146-257a814070b4?auto=format&fit=crop&w=900&q=85">
+      </article>
+      <article class="lens-panel" id="lenses">
+        <div class="section-heading"><div><p class="section-kicker">PREMIUM LENS OPTIONS</p></div><a href="#lenses">View All →</a></div>
+        <div class="lens-grid">
+          <div>◯<b>Single Vision</b><small>Starting ₹599</small></div>
+          <div>☼<b>Anti-Glare</b><small>Starting ₹899</small></div>
+          <div>▣<b>Blue Cut</b><small>Starting ₹999</small></div>
+          <div>☀<b>Photochromic</b><small>Starting ₹1,299</small></div>
+          <div>◉<b>Progressive</b><small>Starting ₹1,999</small></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="trust-row" id="brands">
+      <div>◉<b>FREE EYE TEST</b><small>At All Stores</small></div>
+      <div>▱<b>WIDE RANGE</b><small>1000+ Styles</small></div>
+      <div>♧<b>CUSTOM FITTING</b><small>Perfect Comfort</small></div>
+      <div>▤<b>EASY EMI</b><small>On Credit Cards</small></div>
+      <div>⌖<b>STORE LOCATOR</b><small>Find Nearest Store</small></div>
+      <div>●<b>WHATSAPP SUPPORT</b><small>Chat With Us</small></div>
+    </section>
+
+    <section class="newsletter" id="new">
+      <div><p class="section-kicker">JAGDAMBA OPTICAL</p><h2>Better vision. Better style.</h2><p>Get new arrivals, offers and eyewear tips directly in your inbox.</p></div>
+      <form id="newsletterForm"><input type="email" placeholder="Enter your email" required><button class="btn primary">SUBSCRIBE</button></form>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-brand"><div class="logo"><span class="logo-mark">♕</span><span><b>JAGDAMBA</b><small>OPTICAL</small></span></div><p>Premium eyewear with trusted service.</p></div>
+    <div><h4>SHOP</h4><a href="#eyeglasses">Eyeglasses</a><a href="#sunglasses">Sunglasses</a><a href="#kids">Kids</a><a href="#computer">Computer Glasses</a></div>
+    <div><h4>HELP</h4><a href="#">Contact Us</a><a href="#">Shipping</a><a href="#">Returns</a><a href="#">Warranty</a></div>
+    <div><h4>FOLLOW</h4><a href="#">Instagram</a><a href="#">Facebook</a><a href="#">LinkedIn</a><a href="#">WhatsApp</a></div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>
