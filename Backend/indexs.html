@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jagdamba Optical Admin</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ---------- RESET & BASE ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: #f4f7fc;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ---------- SIDEBAR ---------- */
+    .sidebar {
+      width: 260px;
+      background: #0b2a3c;
+      color: #fff;
+      padding: 25px 20px;
+      position: fixed;
+      height: 100%;
+      overflow-y: auto;
+      transition: 0.3s;
+    }
+
+    .sidebar .brand {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 35px;
+      letter-spacing: 1px;
+      border-bottom: 2px solid #1d4b63;
+      padding-bottom: 15px;
+    }
+    .sidebar .brand i {
+      color: #f0c27a;
+      margin-right: 10px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar ul li {
+      margin: 18px 0;
+    }
+
+    .sidebar ul li a {
+      color: #cbd8e6;
+      text-decoration: none;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      transition: 0.2s;
+    }
+
+    .sidebar ul li a:hover,
+    .sidebar ul li a.active {
+      background: #1d4b63;
+      color: #fff;
+    }
+
+    .sidebar ul li a i {
+      width: 22px;
+      text-align: center;
+    }
+
+    /* ---------- MAIN CONTENT ---------- */
+    .main-content {
+      margin-left: 260px;
+      padding: 30px 40px;
+      width: 100%;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      color: #0b2a3c;
+    }
+
+    .header .admin-profile {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .header .admin-profile i {
+      font-size: 28px;
+      color: #0b2a3c;
+      background: #fff;
+      padding: 10px;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    /* ---------- STATS CARDS ---------- */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 25px;
+      margin-bottom: 35px;
+    }
+
+    .stat-card {
+      background: #fff;
+      padding: 22px 20px;
+      border-radius: 14px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+      border-left: 6px solid #f0c27a;
+    }
+
+    .stat-card h3 {
+      font-size: 14px;
+      color: #7a8a9e;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-card .number {
+      font-size: 32px;
+      font-weight: 700;
+      color: #0b2a3c;
+      margin: 8px 0 5px;
+    }
+
+    .stat-card .sub {
+      font-size: 13px;
+      color: #2e7d5e;
+      background: #e3f5ed;
+      display: inline-block;
+      padding: 2px 12px;
+      border-radius: 20px;
+    }
+
+    /* ---------- TABLES & SECTIONS ---------- */
+    .section-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #0b2a3c;
+      margin: 40px 0 18px 0;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px 25px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.03);
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th {
+      text-align: left;
+      padding: 14px 8px;
+      color: #4a5b6b;
+      font-weight: 600;
+      border-bottom: 2px solid #e9edf2;
+    }
+
+    td {
+      padding: 14px 8px;
+      border-bottom: 1px solid #f0f3f7;
+      color: #1f2a36;
+    }
+
+    .status-badge {
+      background: #dff0fa;
+      color: #1f6f9b;
+      padding: 4px 14px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .status-badge.delivered {
+      background: #ddf4e6;
+      color: #1b7a4a;
+    }
+
+    .status-badge.pending {
+      background: #fff2d6;
+      color: #a86b1a;
+    }
+
+    .btn-small {
+      background: #0b2a3c;
+      color: #fff;
+      border: none;
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn-small:hover {
+      background: #1d4b63;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 70px;
+        padding: 20px 12px;
+      }
+      .sidebar .brand {
+        font-size: 0;
+      }
+      .sidebar .brand i {
+        font-size: 24px;
+        margin-right: 0;
+      }
+      .sidebar ul li a span {
+        display: none;
+      }
+      .sidebar ul li a {
+        justify-content: center;
+        padding: 12px 0;
+      }
+      .main-content {
+        margin-left: 70px;
+        padding: 20px;
+      }
+      .stats {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .stats {
+        grid-template-columns: 1fr;
+      }
+      .header {
+        flex-direction: column;
+        align-items: start;
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <i class="fas fa-eye"></i> Jagdamba
+    </div>
+    <ul>
+      <li><a href="#" class="active"><i class="fas fa-chart-pie"></i> <span>Dashboard</span></a></li>
+      <li><a href="#"><i class="fas fa-shopping-cart"></i> <span>Orders</span></a></li>
+      <li><a href="#"><i class="fas fa-boxes"></i> <span>Inventory</span></a></li>
+      <li><a href="#"><i class="fas fa-users"></i> <span>Customers</span></a></li>
+      <li><a href="#"><i class="fas fa-file-invoice"></i> <span>Invoices</span></a></li>
+      <li><a href="#"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+    </ul>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+
+    <!-- HEADER -->
+    <div class="header">
+      <h1>👓 Dashboard</h1>
+      <div class="admin-profile">
+        <span style="color:#0b2a3c; font-weight:500;">Admin</span>
+        <i class="fas fa-user-circle"></i>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats">
+      <div class="stat-card">
+        <h3>TOTAL ORDERS</h3>
+        <div class="number">1,284</div>
+        <span class="sub"><i class="fas fa-arrow-up"></i> +12%</span>
+      </div>
+      <div class="stat-card" style="border-left-color:#4f8ec9;">
+        <h3>REVENUE</h3>
+        <div class="number">₹4,82,000</div>
+        <span class="sub"><i class="fas fa-arrow-up"></i> +8%</span>
+      </div>
+      <div class="stat-card" style="border-left-color:#4bc0c0;">
+        <h3>CUSTOMERS</h3>
+        <div class="number">342</div>
+        <span class="sub"><i class="fas fa-arrow-up"></i> +5%</span>
+      </div>
+      <div class="stat-card" style="border-left-color:#b8860b;">
+        <h3>STOCK ITEMS</h3>
+        <div class="number">76</div>
+        <span class="sub"><i class="fas fa-exclamation-triangle"></i> 8 low</span>
+      </div>
+    </div>
+
+    <!-- RECENT ORDERS -->
+    <div class="section-title">📦 Recent Orders</div>
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Product</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>#1023</strong></td>
+            <td>Rahul Sharma</td>
+            <td>Ray-Ban RB2180</td>
+            <td>₹8,500</td>
+            <td><span class="status-badge delivered">Delivered</span></td>
+            <td><button class="btn-small">View</button></td>
+          </tr>
+          <tr>
+            <td><strong>#1022</strong></td>
+            <td>Priya Mehta</td>
+            <td>Oakley Holbrook</td>
+            <td>₹12,200</td>
+            <td><span class="status-badge pending">Pending</span></td>
+            <td><button class="btn-small">View</button></td>
+          </tr>
+          <tr>
+            <td><strong>#1021</strong></td>
+            <td>Amit Verma</td>
+            <td>Vincent Chase V-101</td>
+            <td>₹6,750</td>
+            <td><span class="status-badge">Processing</span></td>
+            <td><button class="btn-small">View</button></td>
+          </tr>
+          <tr>
+            <td><strong>#1020</strong></td>
+            <td>Sneha Reddy</td>
+            <td>Fastrack Wayfarer</td>
+            <td>₹4,300</td>
+            <td><span class="status-badge delivered">Delivered</span></td>
+            <td><button class="btn-small">View</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- INVENTORY + CUSTOMERS (two columns) -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 30px;">
+
+      <!-- Inventory -->
+      <div>
+        <div class="section-title" style="margin-top:0;">📊 Inventory Status</div>
+        <div class="card">
+          <ul style="list-style:none;">
+            <li style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #edf2f7;">
+              <span>Ray-Ban RB2180</span> <span style="color:#1f6f9b;">24 in stock</span>
+            </li>
+            <li style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #edf2f7;">
+              <span>Oakley Holbrook</span> <span style="color:#b8860b;">8 in stock</span>
+            </li>
+            <li style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #edf2f7;">
+              <span>Vincent Chase V-101</span> <span style="color:#1f6f9b;">31 in stock</span>
+            </li>
+            <li style="display:flex; justify-content:space-between; padding:10px 0;">
+              <span>Fastrack Wayfarer</span> <span style="color:#c0392b;">3 in stock</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Customers -->
+      <div>
+        <div class="section-title" style="margin-top:0;">👥 Top Customers</div>
+        <div class="card">
+          <ul style="list-style:none;">
+            <li style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #edf2f7;">
+              <span><i class="fas fa-user" style="color:#0b2a3c; margin-right:10px;"></i>Rahul Sharma</span> <span>₹34,200</span>
+            </li>
+            <li style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #edf2f7;">
+              <span><i class="fas fa-user" style="color:#0b2a3c; margin-right:10px;"></i>Priya Mehta</span> <span>₹28,950</span>
+            </li>
+            <li style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #edf2f7;">
+              <span><i class="fas fa-user" style="color:#0b2a3c; margin-right:10px;"></i>Amit Verma</span> <span>₹22,100</span>
+            </li>
+            <li style="display:flex; justify-content:space-between; padding:10px 0;">
+              <span><i class="fas fa-user" style="color:#0b2a3c; margin-right:10px;"></i>Sneha Reddy</span> <span>₹19,800</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+</body>
+</html>
